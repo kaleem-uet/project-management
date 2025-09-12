@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Comment } from 'src/comment/entities/comment.entity';
 import { Project } from 'src/project/entities/project.entity';
 import { User } from 'src/user/entities/user.entity';
@@ -9,6 +10,11 @@ import {
   OneToMany,
 } from 'typeorm';
 
+export enum TaskStatus {
+  TODO = 'Todo',
+  IN_PROGRESS = 'In Progress',
+  DONE = 'Done',
+}
 @Entity('tasks')
 export class Task {
   @PrimaryGeneratedColumn()
@@ -20,8 +26,12 @@ export class Task {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ default: 'Todo' })
-  status: 'Todo' | 'In Progress' | 'Done';
+  @Column({
+    type: 'enum',
+    enum: TaskStatus,
+    default: TaskStatus.TODO,
+  })
+  status: TaskStatus;
 
   @Column({ type: 'timestamp', nullable: true })
   deadline: Date;
