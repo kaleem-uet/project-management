@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Comment } from 'src/comment/entities/comment.entity';
 import { Company } from 'src/company/entities/company.entity';
 import { Task } from 'src/task/entities/task.entity';

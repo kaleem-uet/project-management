@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Comment } from 'src/comment/entities/comment.entity';
 import { Company } from 'src/company/entities/company.entity';
 import { Project } from 'src/project/entities/project.entity';
@@ -12,6 +13,11 @@ import {
   JoinTable,
 } from 'typeorm';
 
+export enum UserRoles {
+  Employee = 'Employee',
+  Manager = 'Manager',
+  Admin = 'Admin',
+}
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -26,8 +32,8 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ default: 'Employee' })
-  role: 'Admin' | 'Manager' | 'Employee';
+  @Column({ type: 'enum', enum: UserRoles, default: UserRoles.Employee })
+  role: UserRoles;
 
   // Relations
   @ManyToOne(() => Company, (company) => company.users)
